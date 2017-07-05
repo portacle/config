@@ -1,137 +1,21 @@
-(load-library "iso-transl")
-(load-library "portacle")
+;;;;; ＤＯ　ＮＯＴ　ＭＯＤＩＦＹ　ＴＨＩＳ　ＦＩＬＥ！
+;;
+;; This file will be replaced whenever Portacle is updated.
+;; For emacs configuration changes, please use the dedicated
+;; user.el file as explained in the help buffer.
+;; 
 
+;; Predefine bare minimum path functions
+(setq portacle-root (or (getenv "ROOT") (expand-file-name "~/")))
+(defun portacle-path (path)
+  (concat portacle-root path))
 
-;; Set up paths
+;; Set up necessary paths
 (setq user-emacs-directory (portacle-path "all/emacsd/"))
-(add-to-list 'load-path (portacle-path "all/emacsd/shinmera/"))
+(add-to-list 'load-path (portacle-path "all/emacsd/portacle/"))
 (cd portacle-root)
 
-(unless (locate-library "shinmera")
-  (display-warning :warning "Basic Portacle scripts are not present."))
-
-(when (locate-library "shinmera")
-  ;; Load contribs
-  (require 'shinmera-general)
-  (require 'shinmera-functions)
-  (require 'shinmera-neotree)
-  (require 'shinmera-company)
-  (require 'shinmera-paste)
-  (require 'shinmera-keys)
-  (require 'shinmera-magit)
-  (require 'shinmera-lisp)
-  (require 'shinmera-startup)
-  (require 'shinmera-spell)
-
-  ;; Fix Spellchecker
-  (setq ispell-program-name
-        (portacle-bin-path "hunspell"))
-  
-  ;; Make sure SLIME knows about our SBCL
-  (setq slime-lisp-implementations
-        `((sbcl (,(portacle-bin-path "sbcl")))))
-
-  ;; Make sure SLIME stores the FASLs within Portacle
-  ;; @Override
-  (defun slime-init-command (port-filename _coding-system)
-    "Return a string to initialize Lisp."
-    (let ((loader (if (file-name-absolute-p slime-backend)
-                      slime-backend
-                      (concat slime-path slime-backend))))
-      ;; Return a single form to avoid problems with buffered input.
-      (format "%S\n\n"
-              `(progn
-                 (load ,(slime-to-lisp-filename (expand-file-name loader))
-                       :verbose t)
-                 (setf (symbol-value (read-from-string "swank-loader:*fasl-directory*"))
-                       ,(slime-to-lisp-filename (portacle-app-path "asdf" "cache/swank/")))
-                 (funcall (read-from-string "swank-loader:init"))
-                 (funcall (read-from-string "swank:start-server")
-                          ,(slime-to-lisp-filename port-filename))))))
-
-  ;; Set the Magit executable explicitly
-  (setq magit-git-executable (portacle-bin-path "git"))
-
-  ;; Customise graphic mode
-  (when window-system
-    (toggle-frame-maximized)
-    (set-frame-font (os-case (gnu/linux "Monospace-10")
-                             (darwin "Monaco-10")
-                             (windows-nt "Consolas-10")) nil t))
-
-  ;; Open the help file
-  (with-current-buffer (get-buffer-create "*portacle-help*")
-    (insert-file-contents (portacle-path "config/help.txt"))
-    (read-only-mode)
-    (emacs-lock-mode 'kill))
-
-  (defun portacle-help ()
-    (interactive)
-    (switch-to-buffer (get-buffer "*portacle-help*")))
-
-  (define-my-key "C-h h" 'portacle-help)
-
-  ;; Customise the scratch buffer
-  (setq initial-scratch-message (portacle-fread (portacle-path "config/scratch.txt")))
-  (setq initial-major-mode 'common-lisp-mode)
-
-  ;; Populate default MC lists
-  (unless (file-exists-p mc/list-file)
-    (setq mc/cmds-to-run-for-all
-          '(backward-sexp
-            downcase-region
-            electric-newline-and-maybe-indent
-            end-of-buffer
-            forward-sexp
-            indent-for-tab-command
-            kill-region
-            paredit-backslash
-            paredit-backward
-            paredit-close-round
-            paredit-close-square
-            paredit-comment-dwim
-            paredit-convolute-sexp
-            paredit-doublequote
-            paredit-forward
-            paredit-forward-barf-sexp
-            paredit-forward-delete
-            paredit-forward-down
-            paredit-forward-slurp-sexp
-            paredit-kill
-            paredit-newline
-            paredit-open-round
-            paredit-open-square
-            paredit-reindent-cl-defun
-            paredit-semicolon
-            paredit-splice-sexp-killing-backward
-            paredit-backslash
-            reindent-then-newline-and-indent
-            scroll-other-window
-            slime-autodoc-space
-            slime-space
-            switch-to-buffer
-            upcase-region
-            yank-rectangle))
-    (setq mc/cmds-to-run-once
-          '(down-list
-            ido-list-directory
-            mouse-drag-mode-line)))
-
-  ;; Other fixes
-  (when (eql system-type 'windows-nt)
-    ;; We hack this to never error because otherwise emacs refuses to work
-    ;; as a server on Windows due to requiring the dir being fixed to a
-    ;; "safe" directory, which we cannot ensure in our portable environment.
-    (cl-defun server-ensure-safe-dir (dir)
-              (unless (file-exists-p dir)
-                (make-directory dir t))))
-
-  ;; User file and customization
-  (add-hook 'kill-emacs-query-functions
-            'custom-prompt-customize-unsaved-options)
-  (setq custom-file (portacle-path "config/user.el"))
-  (when (file-exists-p (portacle-path "config/user.el"))
-    (load (portacle-path "config/user.el")))
-
-  ;; Trigger contrib startup
-  (startup-shinmera))
+;; Load main library
+(if (locate-library "portacle")
+    (load-library "portacle")
+    (display-warning :warning "Basic Portacle scripts are not present."))
