@@ -360,6 +360,14 @@ This should open up a new buffer that lists all available packages from the sour
 
 Usually you will not need to restart in order for the changes by new packages to take effect.
 
+Instead of using the package browser manually, you can also install packages in your user configuration file by using the function ensure-installed. For example, installing the evil-mode package and activating it would require the following lines to be added:
+
+    (ensure-installed 'evil)
+    (require 'evil)
+    (evil-mode 1)
+
+This ensures that, even if you install a new Portacle version or clean it out otherwise, your package will be installed and configured again automatically when you next start Portacle.
+
 * 　ＦＵＲＴＨＥＲ　ＲＥＡＤＩＮＧ ＆　ＲＥＳＯＵＲＣＥＳ
 
 - A Gentle Introduction to Symbolic Computation <https://www.cs.cmu.edu/~dst/LispBook/book.pdf>
