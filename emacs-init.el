@@ -126,7 +126,10 @@
               (unless (file-exists-p dir)
                 (make-directory dir t))))
 
-  ;; Load user file
+  ;; User file and customization
+  (add-hook 'kill-emacs-query-functions
+            'custom-prompt-customize-unsaved-options)
+  (setq custom-file (portacle-path "config/user.el"))
   (when (file-exists-p (portacle-path "config/user.el"))
     (load (portacle-path "config/user.el")))
 
