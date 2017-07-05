@@ -330,9 +330,9 @@ Portacle's editor, Emacs, allows you to modify it through code. Lisp code, even.
 
 In order to customise the editor, you'll want to edit the file config/user.el in the Portacle directory. If it doesn't exist yet, just create it. On next launch, it should be run automatically and your changes should apply.
 
-The most common task you probably want to perform is assign a keychord to a function that you otherwise have to perform through 「M-x」. In order to do that, you can use define-my-key. As an example, here's how to add a keychord for the Magit-status command:
+The most common task you probably want to perform is assign a keychord to a function that you otherwise have to perform through 「M-x」. In order to do that, you can use define-portacle-key. As an example, here's how to add a keychord for the Magit-status command:
 
-    (define-my-key "C-?" 'Magit-status)
+    (define-portacle-key "C-?" 'Magit-status)
 
 To see that the keychord works, you can either save the file and restart Portacle, or you can load the change in directly by pressing 「C-M-x」 with the cursor on the expression. Remember to use 「C-h k」 and 「C-h m」 to see what a keychord already does or what kinds of actions are available in a buffer.
 
