@@ -11,3 +11,5 @@
 [user]
         name = Portacle-User
         email = user@portacle
+[credential]
+        helper = portacle
