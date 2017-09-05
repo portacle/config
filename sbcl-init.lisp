@@ -86,8 +86,11 @@
                                (root (uiop:merge-pathnames* source root))
                                (t source))
       :when (or (eq source t) (pathname-match-p p absolute-source))
-      :return (uiop:translate-pathname* (uiop:enough-pathname p portacle:*root*)
-                                        absolute-source destination root source)
+      :return (uiop:translate-pathname*
+               (make-pathname :host (pathname-host p)
+                              :device (pathname-device p)
+                              :defaults (uiop:enough-pathname p portacle:*root*))
+               absolute-source destination root source)
       :finally (return p)))))
 
 #+asdf3
