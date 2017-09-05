@@ -195,6 +195,9 @@ These commands are specific to lisp buffers. They'll only work in buffers in the
 - C-c C-c
   Compile the form at point. This will send the form your cursor is on at the moment to the lisp process and compile it.
 
+- C-u C-c C-c
+  Compile the form at point with maximum debugging info. This is useful when you know there's a problem in your function but the debugger doesn't tell you much.
+
 - C-c C-k
   Compile and load the entire file in this buffer.
 

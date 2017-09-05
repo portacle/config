@@ -21,9 +21,6 @@
   (let ((file (portacle-path file platform)))
     (when (probe-file file) (load file))))
 
-;; Ensure nice debuggability
-(sb-ext:restrict-compiler-policy 'debug 3)
-
 ;; Fix up the source locations
 (sb-ext:set-sbcl-source-location (portacle-path "sbcl/share/src/"))
 
