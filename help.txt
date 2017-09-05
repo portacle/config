@@ -222,6 +222,9 @@ These commands are specific to lisp buffers. They'll only work in buffers in the
 - M-;
   Un/comment out the marked region.
 
+- C-c C-d h
+  Look up a symbol in the Common Lisp Hyperspec. After hitting the keychord, you can enter the symbol to look up in the minibuffer.
+
 The following shortcuts are useful in the REPL.
 
 - C-<up>
