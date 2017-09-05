@@ -1,33 +1,58 @@
-(in-package #:cl-user)
-(defpackage #:portacle
-  (:use #:cl)
-  (:export #:portacle-root))
-(in-package #:portacle)
+(unless #.*load-pathname*
+  (error "You must LOAD the sbcl-init.file ."))
 
 (require 'sb-posix)
+
+;;; Define Portacle system support package
+(defpackage #:portacle
+  (:use #:cl)
+  (:shadow
+   #:load)
+  (:export
+   #:*platform*
+   #:*root*
+   #:path
+   #:load))
+(in-package #:portacle)
 
 (defvar *platform*
   #+linux "lin"
   #+win32 "win"
   #+darwin "mac")
 
-(defun portacle-root ()
-  (or (sb-posix:getenv "ROOT") (user-homedir-pathname)))
+(defun find-root (&optional (source #.*load-pathname*))
+  (let ((dir (make-pathname :name NIL :type NIL :defaults source)))
+    (labels ((try (dir)
+               (cond ((probe-file (make-pathname :name ".portacle_root" :defaults dir))
+                      dir)
+                     ((rest (pathname-directory dir))
+                      (try (make-pathname :directory (butlast (pathname-directory dir)) :defaults dir)))
+                     (T
+                      (warn "Failed to find the Portacle root directory!")
+                      (make-pathname :name NIL :type NIL :defaults (first sb-ext:*posix-argv*))))))
+      (try dir))))
 
-(defun portacle-path (file &optional (platform *platform*))
-  (merge-pathnames (format NIL "~@[~a/~]~a" platform file) (portacle-root)))
+(defvar *root*
+  (or (sb-posix:getenv "ROOT")
+      (find-root)))
 
-(defun load-portacle-file (file &optional (platform *platform*))
-  (let ((file (portacle-path file platform)))
-    (when (probe-file file) (load file))))
+(defun path (file &optional (platform *platform*))
+  (merge-pathnames (format NIL "~@[~a/~]~a" platform file) *root*))
+
+(defun load (file &optional (platform *platform*))
+  (let ((file (path file platform)))
+    (when (probe-file file) (cl:load file))))
+
+;;; Configure the system for Portacle.
+(in-package #:cl-user)
 
 ;; Fix up the source locations
-(sb-ext:set-sbcl-source-location (portacle-path "sbcl/share/src/"))
+(sb-ext:set-sbcl-source-location (portacle:path "sbcl/share/src/"))
 
 ;; Load ASDF
 #-asdf3
-(or (load-portacle-file "asdf/asdf.fasl")
-    (load-portacle-file "asdf/asdf.lisp")
+(or (portacle:load "asdf/asdf.fasl")
+    (portacle:load "asdf/asdf.lisp")
     (warn "Failed to load ASDF."))
 
 ;; Fix up the ASDF cache location
@@ -38,43 +63,44 @@
                                (lisp-implementation-version)
                                (software-type)
                                (machine-type))
-                       (portacle-path "asdf/cache/")))
+                       (portacle:path "asdf/cache/")))
 
 ;; This is almost exactly the same as the original ASDF version
 ;; except that we relativise the pathname to the Portacle directory.
-(in-package #:asdf/output-translations)
+#+asdf3
 (defun apply-output-translations/portacle (path)
   (etypecase path
     (logical-pathname
      path)
     ((or pathname string)
-     (ensure-output-translations)
-     (loop* :with p = (uiop:resolve-symlinks* path)
-            :for (source destination) :in (car *output-translations*)
-            :for root = (when (or (eq source t)
-                                  (and (pathnamep source)
-                                       (not (absolute-pathname-p source))))
-                          (pathname-root p))
-            :for absolute-source = (cond
-                                     ((eq source t) (wilden root))
-                                     (root (merge-pathnames* source root))
-                                     (t source))
-            :when (or (eq source t) (pathname-match-p p absolute-source))
-            :return (translate-pathname* (enough-pathname p (portacle:portacle-root))
-                                         absolute-source destination root source)
-            :finally (return p)))))
+     (asdf/output-translations:ensure-output-translations)
+     (uiop:loop*
+      :with p = (uiop:resolve-symlinks* path)
+      :for (source destination) :in (car asdf/output-translations:*output-translations*)
+      :for root = (when (or (eq source t)
+                            (and (pathnamep source)
+                                 (not (uiop:absolute-pathname-p source))))
+                    (uiop:pathname-root p))
+      :for absolute-source = (cond
+                               ((eq source t) (uiop:wilden root))
+                               (root (uiop:merge-pathnames* source root))
+                               (t source))
+      :when (or (eq source t) (pathname-match-p p absolute-source))
+      :return (uiop:translate-pathname* (uiop:enough-pathname p portacle:*root*)
+                                        absolute-source destination root source)
+      :finally (return p)))))
 
-(setf *output-translation-function* 'apply-output-translations/portacle)
-
-(in-package #:portacle)
+#+asdf3
+(setf asdf/output-translations:*output-translation-function* 'apply-output-translations/portacle)
 
 ;; Load quicklisp
 #-quicklisp
-(or (load-portacle-file "quicklisp/setup.lisp" "all")
+(or (portacle:load "quicklisp/setup.lisp" "all")
     (warn "Failed to load quicklisp."))
 
 ;; Add the project folder to Quicklisp's local-projects directories.
 #+quicklisp
-(pushnew (portacle-path "projects/" NIL) ql:*local-project-directories*)
+(pushnew (portacle:path "projects/" NIL) ql:*local-project-directories*)
 
-(in-package #:cl-user)
+;; All set.
+(push :portacle *features*)
