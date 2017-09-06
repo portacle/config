@@ -22,7 +22,7 @@
 (defvar *binary*
   (make-pathname :name NIL :type NIL :defaults (first sb-ext:*posix-argv*)))
 
-(defun find-root (&optional (source *sbcl-binary*))
+(defun find-root (&optional (source *binary*))
   (let ((dir (make-pathname :name NIL :type NIL :defaults source)))
     (labels ((try (dir)
                (cond ((probe-file (make-pathname :name ".portacle_root" :defaults dir))
@@ -31,7 +31,7 @@
                       (try (make-pathname :directory (butlast (pathname-directory dir)) :defaults dir)))
                      (T
                       (warn "Failed to find the Portacle root directory!")
-                      *sbcl-binary*))))
+                      *binary*))))
       (try dir))))
 
 (defvar *root*
