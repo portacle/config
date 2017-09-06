@@ -1,6 +1,3 @@
-(unless #.*load-pathname*
-  (error "You must LOAD the sbcl-init.file ."))
-
 (require 'sb-posix)
 
 ;;; Define Portacle system support package
@@ -10,7 +7,9 @@
    #:load)
   (:export
    #:*platform*
+   #:*binary*
    #:*root*
+   #:find-root
    #:path
    #:load))
 (in-package #:portacle)
@@ -20,7 +19,10 @@
   #+win32 "win"
   #+darwin "mac")
 
-(defun find-root (&optional (source #.*load-pathname*))
+(defvar *binary*
+  (make-pathname :name NIL :type NIL :defaults (first sb-ext:*posix-argv*)))
+
+(defun find-root (&optional (source *sbcl-binary*))
   (let ((dir (make-pathname :name NIL :type NIL :defaults source)))
     (labels ((try (dir)
                (cond ((probe-file (make-pathname :name ".portacle_root" :defaults dir))
@@ -29,7 +31,7 @@
                       (try (make-pathname :directory (butlast (pathname-directory dir)) :defaults dir)))
                      (T
                       (warn "Failed to find the Portacle root directory!")
-                      (make-pathname :name NIL :type NIL :defaults (first sb-ext:*posix-argv*))))))
+                      *sbcl-binary*))))
       (try dir))))
 
 (defvar *root*
@@ -94,7 +96,7 @@
       :finally (return p)))))
 
 #+asdf3
-(setf asdf/output-translations:*output-translation-function* 'apply-output-translations/portacle)
+(setf asdf/output-translations::*output-translation-function* 'apply-output-translations/portacle)
 
 ;; Load quicklisp
 #-quicklisp
