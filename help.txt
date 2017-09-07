@@ -210,10 +210,10 @@ These commands are specific to lisp buffers. They'll only work in buffers in the
 - M-,
   Jump back to your previous location before you hit 「M-.」.
 
-- C-<right>
+- C-<right>    or   C-)
   "Slurp" in the expression on the right. This means that if your cursor is currently within a list and there is an element outside to the right of the list, pressing this will pull the element onto the end of the list.
 
-- C-<left>
+- C-<left>     or   C-}
   "Barf" the expression at the end. This means that if your cursor is currently within a list and there is an element at the end of it, pressing this will push the element outside the list and put it right after it.
 
 - M-<up>
