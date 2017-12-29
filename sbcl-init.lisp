@@ -67,37 +67,6 @@
                                (machine-type))
                        (portacle:path "asdf/cache/")))
 
-;; This is almost exactly the same as the original ASDF version
-;; except that we relativise the pathname to the Portacle directory.
-#+asdf3
-(defun apply-output-translations/portacle (path)
-  (etypecase path
-    (logical-pathname
-     path)
-    ((or pathname string)
-     (asdf/output-translations:ensure-output-translations)
-     (uiop:loop*
-      :with p = (uiop:resolve-symlinks* path)
-      :for (source destination) :in (car asdf/output-translations:*output-translations*)
-      :for root = (when (or (eq source t)
-                            (and (pathnamep source)
-                                 (not (uiop:absolute-pathname-p source))))
-                    (uiop:pathname-root p))
-      :for absolute-source = (cond
-                               ((eq source t) (uiop:wilden root))
-                               (root (uiop:merge-pathnames* source root))
-                               (t source))
-      :when (or (eq source t) (pathname-match-p p absolute-source))
-      :return (uiop:translate-pathname*
-               (make-pathname :host (pathname-host p)
-                              :device (pathname-device p)
-                              :defaults (uiop:enough-pathname p portacle:*root*))
-               absolute-source destination root source)
-      :finally (return p)))))
-
-#+asdf3
-(setf asdf/output-translations::*output-translation-function* 'apply-output-translations/portacle)
-
 ;; Load quicklisp
 #-quicklisp
 (or (portacle:load "quicklisp/setup.lisp" "all")
