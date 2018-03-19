@@ -15,7 +15,15 @@
 (add-to-list 'load-path (portacle-path "all/emacsd/portacle/"))
 (cd portacle-root)
 
+;; Set up user init file, since we're launched without one
+;; "--no-init-file"
+(setq custom-file (portacle-path "config/user.el")
+      user-init-file custom-file)
+
 ;; Load main library
 (if (locate-library "portacle")
     (load-library "portacle")
-    (display-warning :warning "Basic Portacle scripts are not present."))
+  (display-warning :warning "Basic Portacle scripts are not present."))
+
+;; Load user init file
+(load user-init-file t)
