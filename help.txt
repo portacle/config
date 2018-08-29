@@ -77,166 +77,166 @@ Simple enough, right? We'll use this keychord notation from here on out. In orde
 
 Let's get through some basic keychords to navigate around in Portacle. Try them out to see for yourself what they do. Seeing it in effect probably explains it much better than I could hope to in words. You don't need to memorise all of the chords that are listed here either, you'll pick up on the ones you need as you go along.
 
-- C-h k
+- {key "C-h k"}
   Help on Keychords. After pressing this chord, you can press another, and a little buffer will pop up telling you what chord you pressed and what it does. If you forget what a chord does, this is a good way to get a quick reminder. You can press 「q」 in the help buffer to close it again.
 
-- C-h m
+- {key "C-h m"}
   Help on Modes. After pressing this chord you'll get a large help buffer that lists all the active modes in the current buffer and what kind of chords they provide. Useful if you forget a keychord.
 
-- C-x b
+- {key "C-x b"}
   Buffer switching. You've used this before! After hitting the keychord it will ask you for the name of a buffer to switch to. It will suggest names in the minibuffer, and you only have to type as much of the name until shows the one you want after your cursor. You can also use the arrow keys to cycle through the suggestions. Once you have the one your want, simply hit 「RET」 to switch to it. Usually the one you were on before will be the first suggestion when you're switching again, so you can switch back and forth quite quick with just 「C-x b RET」. You can also specify a buffer name that does not yet exist yet, which will open a new buffer with the given name.
 
-- C-x k
+- {key "C-x k"}
   Kill (close) a buffer. Just like 「C-x b」 you get to tell it a buffer name, in this case defaulting to the current one. Hitting RET then performs the actual killing and switches the window to the next buffer in line.
 
-- C-x o
+- {key "C-x o"}
   Other window. Essentially cycles between the open windows.
 
-- C-x 3
+- {key "C-x 3"}
   Splits the current window horizontally and places the new window to the right.
 
-- C-x 2
+- {key "C-x 2"}
   Splits the current window vertically and places the new window below.
 
-- C-x 1
+- {key "C-x 1"}
   Removes all windows but the current one, making it take up all space.
 
-- C-x 0
+- {key "C-x 0"}
   Removes the current window.
 
-- C-g
+- {key "C-g"}
   Usually aborts whatever you started doing. This is very useful if you accidentally started typing a chord you don't actually wanted to start, or are in some other kind of situation that you'd like to get out of.
 
-- C-s
+- {key "C-s"}
   Search in the current buffer. After hitting 「C-s」 you can start typing for the thing you want to look for. Hitting 「C-s」 again will jump to the next match. Hitting 「RET」 will end the search at the current position. If you press 「C-g」 the cursor will jump back to where it started and the search is aborted.
 
-- C-j
+- {key "C-j"}
   This acts as 「RET」 in situations where 「RET」 does something different by default. More precisely this means either inserting a newline or being the "yes, I'm absolutely sure I want to confirm" chord.
 
-- C-x C-f
+- {key "C-x C-f"}
   Open a file in a new buffer. You'll get to navigate to the file you want in the minibuffer. Once you've chosen the file you want, simply press 「RET」 to open it if it exists, or 「C-j」 to create a new file if it does not yet exist. The auto-completion can sometimes try a bit too hard to find the right file for you. If it's interfering with you wanting to find the file on your own, then simply press 「C-f」 again and it will stop auto-completion.
 
-- C-x C-s
+- {key "C-x C-s"}
   Saves the current file to disk. If you've made some changes and would like to save, this is it.
 
-- C-x C-w
+- {key "C-x C-w"}
   Save the current buffer to a new file on disk. The file choosing works just like in 「C-x C-f」.
 
-- C-x C-v
+- {key "C-x C-v"}
   Switches the current buffer to a different file. Useful for when the file changed on disk but was not reloaded in Portacle.
 
-- C-c k
+- {key "C-c k"}
   Kills the current buffer and deletes the corresponding file. You'll be asked for a confirmation.
 
-- C-x C-c
+- {key "C-x C-c"}
   Close Portacle altogether.
 
-- C-SPC
+- {key "C-SPC"}
   Start marking a region. If you press 「C-SPC」 again, you stop marking. You can also press 「C-g」 to abort as usual.
 
-- C-q
+- {key "C-q"}
   Expands the selected region smartly. This is aware of the current mode and attempts to grow the selected region in an appropriate way for it. This allows you to very quickly select text.
 
-- C-w
+- {key "C-w"}
   Cuts the currently selected region of text from the buffer and puts it into your clipboard.
 
-- M-w
+- {key "M-w"}
   Copies the currently selected region of text in the buffer and puts it into your clipboard.
 
-- C-y
+- {key "C-y"}
   Yanks (pastes) the clipboard contents at your cursor's position.
 
-- C-_
+- {key "C-_"}
   Undoes your last action. For each consecutive time you press it, it performs one undo. If you press something else after undoing and then start undoing again you'll start undoing your undos after a bit. This way, you never lose any editing step. More succinctly put, the action of undoing is itself recorded and can again be undone.
 
-- C-k
+- {key "C-k"}
   Kill the rest of the line, which is everything after your cursor.
 
 - Arrow keys
   Move the cursor in the direction you pressed.
 
-- <home>
+- {key "<home>"}
   Move the cursor to the beginning of the line.
 
-- <end>
+- {key "<end>"}
   Move the cursor to the end of the line.
 
-- ESC <
+- {key "ESC <"}
   Move to the beginning of the buffer.
 
-- ESC >
+- {key "ESC >"}
   Move to the end of the buffer.
 
-- C-M-<pgup>
+- {key "C-M-<pgup>"}
   Create a new cursor for the next region matching the currently selected region above your topmost cursor. If nothing is currently selected, it simply creates a cursor on the next line. Pretty much all commands that work with a single cursor also work with multiple ones, including cutting, pasting, etc. Press 「C-g」 to get rid of the extra cursors.
 
-- C-M-<pgdn>
+- {key "C-M-<pgdn>"}
   The same as 「C-M-<pgup>」, but going downwards.
 
-- C-M-m a
+- {key "C-M-m a"}
   Create new cursors for all occurrences of the currently selected region.
 
-- C-x d
+- {key "C-x d"}
   Open a file tree browser on the side. Pressing RET on an entry will expand/contract directories or open the file in a new buffer.
 
-- C-x e
+- {key "C-x e"}
   Close the file tree browser.
 
-- C-M-f
+- {key "C-M-f"}
   Jump forward by a token. This should be semantically aware and jump however much is appropriate for the content in your buffer.
 
-- C-M-b
+- {key "C-M-b"}
   Jump backward by a token. See 「C-M-f」.
 
 * 　ＣＯＭＭＯＮ　ＬＩＳＰ　ＩＮＴＥＲＡＣＴＩＯＮ
 
 These commands are specific to lisp buffers. They'll only work in buffers in the lisp major-mode.
 
-- C-c C-c
+- {key "C-c C-c"}
   Compile the form at point. This will send the form your cursor is on at the moment to the lisp process and compile it.
 
-- C-u C-c C-c
+- {key "C-u C-c C-c"}
   Compile the form at point with maximum debugging info. This is useful when you know there's a problem in your function but the debugger doesn't tell you much.
 
-- C-c C-k
+- {key "C-c C-k"}
   Compile and load the entire file in this buffer.
 
-- C-c RET
+- {key "C-c RET"}
   Macroexpands the expression at the current point once. In the buffer that appears you'll be able to further expand inner expressions by pressing 「C-c RET」 on them again. 「q」 closes the buffer as usual.
 
-- M-.
+- {key "M-."}
   Jump to the definition of the symbol your cursor is currently on. This is extremely useful in order to learn how a system works and how it is implemented. Use it often.
 
-- M-,
+- {key "M-,"}
   Jump back to your previous location before you hit 「M-.」.
 
-- C-<right>    or   C-)
+- {key "C-<right>"} or {key "C-)"}
   "Slurp" in the expression on the right. This means that if your cursor is currently within a list and there is an element outside to the right of the list, pressing this will pull the element onto the end of the list.
 
-- C-<left>     or   C-}
+- {key "C-<left>"} or {key "C-\}"}
   "Barf" the expression at the end. This means that if your cursor is currently within a list and there is an element at the end of it, pressing this will push the element outside the list and put it right after it.
 
-- M-<up>
+- {key "M-<up>"}
   Splice the contents upwards. This means that if your cursor is currently within a list, pressing this will delete everything from the beginning of the list up to the cursor and remove the list surrounding the remaining elements.
 
-- M-?
+- {key "M-?"}
   "Convolute" the surrounding expressions. This means that the current list and its parent switch positions. For example, convoluting (a (b c) d) with the cursor after the b will produce (b (a c d)), whereas if the cursor is after the c, it will produce (b c (a d)).
 
-- M-;
+- {key "M-;"}
   Un/comment out the marked region.
 
-- C-c C-d h
+- {key "C-c C-d h"}
   Look up a symbol in the Common Lisp Hyperspec. After hitting the keychord, you can enter the symbol to look up in the minibuffer.
 
 The following shortcuts are useful in the REPL.
 
-- C-<up>
+- {key "C-<up>"}
   Insert the previous REPL command from your history.
 
-- C-<down>
+- {key "C-<down>"}
   Insert the next REPL command from your history.
 
-- C-c C-c
+- {key "C-c C-c"}
   Interrupt the current execution.
 
 - ,restart RET
@@ -291,7 +291,7 @@ Using remotes, it also allows you to very easily synchronise your work with othe
 
 * 　ＭＡＧＩＴ
 
-Magit allows you to manage you Git repositories easily and quickly. To run Magit, use M-x magit-status . This will present you with an overview of the repository next to the directory your buffer is currently in, or will ask you for a path if the buffer isn't in a repository.
+Magit allows you to manage you Git repositories easily and quickly. To run Magit, use 「M-x {function magit}」. This will present you with an overview of the repository next to the directory your buffer is currently in, or will ask you for a path if the buffer isn't in a repository.
 
 - Staging: from here on out you can see changes that have been made, which you can stage by hitting 「s」 on the entry. You can also stage everything at once by hitting 「s」 on the section title. By hitting 「TAB」 on an entry you can expand it and see the actual diff of the change. If there are multiple hunks you can also stage individual ones by hitting s with the cursor on the appropriate one. Analogously if you want to unstage, simply use 「u」.
 
@@ -307,7 +307,7 @@ Magit allows you to manage you Git repositories easily and quickly. To run Magit
 
 - Browsing: if you want to view the log of all the commits in your repository, use 「l l」. This will bring up magit's log window. By hitting return on any entry, you can view the changes associated with the commit.
 
-- Cloning: if you need to clone a repository, you can use 「M-x magit-clone」 . It'll ask you for the remote URL and a location to save the repository to.
+- Cloning: if you need to clone a repository, you can use 「M-x {function magit-clone}」 . It'll ask you for the remote URL and a location to save the repository to.
 
 Note that most commands have a prefix character like M, b, c, etc. followed by a command character. When you press the first character, a help popup should show that provides you with options and all the possible commands you can use for that prefix. It is a rather elegant system to show you what you can do and allows you to find your bearings again should you have forgotten how to do something.
 
@@ -315,20 +315,20 @@ Note that most commands have a prefix character like M, b, c, etc. followed by a
 
 Portacle includes some convenience functions to manage projects for you. You can execute them through 「M-x」 as usual.
 
-- create-project
+- {function create-project}
   This creates a new directory in the projects/ directory and populates it with a project skeleton. The files that will be copied and adapted can be found in the config/skeleton/ directory. If you'd like to change what the default project skeleton looks like, this is where you can do that.
 
-- clone-project
+- {function clone-project}
   This clones/copies a project from a remote Git URL like on github.
 
-- remove-project
+- {function remove-project}
   This removes a project that you created or cloned again, permanently. There is no trash bin, so only use this if you're sure you don't need it anymore.
 
 * 　ＭＡＮＡＧＩＮＧ　ＰＯＲＴＡＣＬＥ
 
-Some things like Git require some information about you to operate properly. Portacle sets some default values for that, but you will probably want to use your own information instead. To do this use 「M-x portacle-configure」. It will prompt you for the info in the minibuffer. After you've answered the prompts, it'll automatically save everything in the appropriate locations.
+Some things like Git require some information about you to operate properly. Portacle sets some default values for that, but you will probably want to use your own information instead. To do this use 「M-x {function portacle-configure}」. It will prompt you for the info in the minibuffer. After you've answered the prompts, it'll automatically save everything in the appropriate locations.
 
-If you would like to update Portacle's configurations to the latest versions, you can simply use 「M-x portacle-update」. This will however not update binary files like Git, emacs, and sbcl themselves. However, those should only very seldom change or require a full upgrade.
+If you would like to update Portacle's configurations to the latest versions, you can simply use 「M-x {function portacle-update}」. This will however not update binary files like Git, emacs, and sbcl themselves. However, those should only very seldom change or require a full upgrade.
 
 * 　ＣＵＳＴＯＭＩＳＩＮＧ
 
@@ -336,11 +336,11 @@ Portacle's editor, Emacs, allows you to modify it through code. Lisp code, even.
 
 In order to customise the editor, you'll want to edit the file config/user.el in the Portacle directory. If it doesn't exist yet, just create it. On next launch, it should be run automatically and your changes should apply.
 
-The most common task you probably want to perform is assign a keychord to a function that you otherwise have to perform through 「M-x」. In order to do that, you can use define-portacle-key. As an example, here's how to add a keychord for the Magit-status command:
+The most common task you probably want to perform is assign a keychord to a function that you otherwise have to perform through 「M-x」. In order to do that, you can use {function define-portacle-key}. As an example, here's how to add a keychord for the Magit-status command:
 
-    (define-portacle-key "C-?" 'Magit-status)
+    ({function define-portacle-key} "C-?" 'Magit-status)
 
-To see that the keychord works, you can either save the file and restart Portacle, or you can load the change in directly by pressing 「C-M-x」 with the cursor on the expression. Remember to use 「C-h k」 and 「C-h m」 to see what a keychord already does or what kinds of actions are available in a buffer.
+To see that the keychord works, you can either save the file and restart Portacle, or you can load the change in directly by pressing 「{key "C-M-x"}」 with the cursor on the expression. Remember to use 「{key "C-h k"}」 and 「{key "C-h m"}」 to see what a keychord already does or what kinds of actions are available in a buffer.
 
 Since Elisp is a full programming language with a big standard library provided by Emacs, going into more depth than this would easily blow the scale on this brief section here. Usually if you have something you'd like to do in Elisp or need some kind of functionality, chances are someone else has already solved it for you. Just give it a Google.
 
@@ -348,7 +348,7 @@ Since Elisp is a full programming language with a big standard library provided 
 
 Emacs has a swath of packages available that provide all sorts of additional functionality as a form of plugin. This allows you to extend the editor easily with code made by other people. If you need support for an additional programming language, or have come across a nifty feature somewhere on the web that is available through a package, you can install it directly within Emacs itself.
 
-  M-x package-list-packages
+  M-x {function package-list-packages}
 
 This should open up a new buffer that lists all available packages from the sources Emacs knows about and will let you manage them as you see fit. Remember that you can use C-s to search. The following commands are useful to manage the packages:
 
@@ -376,29 +376,29 @@ This ensures that, even if you install a new Portacle version or clean it out ot
 
 * 　ＦＵＲＴＨＥＲ　ＲＥＡＤＩＮＧ ＆　ＲＥＳＯＵＲＣＥＳ
 
-- A Gentle Introduction to Symbolic Computation <https://www.cs.cmu.edu/~dst/LispBook/book.pdf>
+- A Gentle Introduction to Symbolic Computation {url "https://www.cs.cmu.edu/~dst/LispBook/book.pdf"}
   An introduction to Common Lisp for absolute beginners. Should not require much knowledge of programming.
 
-- Practical Common Lisp <http://www.gigamonkeys.com/book/>
+- Practical Common Lisp {url "http://www.gigamonkeys.com/book/"}
   An introduction to Common Lisp using practical projects. Requires some prior knowledge and experience with programming.
 
-- LispWorks Hyperspec <http://www.lispworks.com/documentation/HyperSpec/Front/index.htm>
+- LispWorks Hyperspec {url "http://www.lispworks.com/documentation/HyperSpec/Front/index.htm"}
   The CLHS is the primary source for when you're wondering what a function, type, variable, anything in CL is supposed to do.
 
-- L1sp.org <http://l1sp.org/html/>
+- L1sp.org {url "http://l1sp.org/html/"}
   This site allows you to conveniently search the CLHS by term, chapter, or even abbreviation.
 
-- Cliki <http://www.cliki.net/index>
+- Cliki {url "http://www.cliki.net/index"}
   The Common Lisp wiki contains various information about common lisp projects.
 
-- Quickdocs <http://quickdocs.org/>
+- Quickdocs {url "http://quickdocs.org/"}
   With Quickdocs you can easily search and browse all the libraries available through Quicklisp.
 
-- Emacs Wiki <https://emacswiki.org/>
+- Emacs Wiki {url "https://emacswiki.org/"}
   The Wiki for Emacs, the editor used in Portacle.
 
-- Git <https://git-scm.com/>
+- Git {url "https://git-scm.com/"}
   The official Git website with heaps of documentation. Note though that the site will refer to the command-line usage of Git rather than the magit one.
 
-- Magit User Manual <https://magit.vc/manual/2.6/magit/>
+- Magit User Manual {url "https://magit.vc/manual/2.6/magit/"}
   This is the documentation on how to use Magit. It'll probably contain everything you ever might want to know and more.
