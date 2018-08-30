@@ -8,7 +8,7 @@ Before we get started we need to lay down some terms so that we can actually tal
 
 - Buffer
   A buffer is what you are looking at right now. Every buffer has a name, this one is called *portacle-help*. You can see the name of the buffer at the bottom of it, right after the colon. Buffers are basically containers for things, usually text or files, but they can also be interactive in different ways, allowing you to run commands and so forth.
-  
+
 - Mode
   Every buffer has something called a major mode, and zero or more minor modes. Modes define what kind of thing the buffer represents, what it looks like, how you can interact with it, what kind of actions are possible, and so forth. In the case of the *portacle-help* buffer, the major mode is Fundamental, and the only minor mode active is My-Keys. You can see the modes listed right next to the buffer name.
 
@@ -291,7 +291,7 @@ Using remotes, it also allows you to very easily synchronise your work with othe
 
 * 　ＭＡＧＩＴ
 
-Magit allows you to manage you Git repositories easily and quickly. To run Magit, use 「M-x {function magit}」. This will present you with an overview of the repository next to the directory your buffer is currently in, or will ask you for a path if the buffer isn't in a repository.
+Magit allows you to manage you Git repositories easily and quickly. To run Magit, use 「M-x {function magit-status}」. This will present you with an overview of the repository next to the directory your buffer is currently in, or will ask you for a path if the buffer isn't in a repository.
 
 - Staging: from here on out you can see changes that have been made, which you can stage by hitting 「s」 on the entry. You can also stage everything at once by hitting 「s」 on the section title. By hitting 「TAB」 on an entry you can expand it and see the actual diff of the change. If there are multiple hunks you can also stage individual ones by hitting s with the cursor on the appropriate one. Analogously if you want to unstage, simply use 「u」.
 
