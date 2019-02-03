@@ -334,7 +334,7 @@ If you would like to update Portacle's configurations to the latest versions, yo
 
 Portacle's editor, Emacs, allows you to modify it through code. Lisp code, even. It's rather similar to Common Lisp in many aspects, but yet different in some. The dialect used in Emacs is called Elisp, and through it, you can write entire programs that run within Emacs. However, we'll just limit ourselves to some simple customisation here.
 
-In order to customise the editor, you'll want to edit the file config/user.el in the Portacle directory. If it doesn't exist yet, just create it. On next launch, it should be run automatically and your changes should apply.
+In order to customise the editor, you'll want to edit the file {file config/user.el} in the Portacle directory. If it doesn't exist yet, just create it. On next launch, it should be run automatically and your changes should apply.
 
 The most common task you probably want to perform is assign a keychord to a function that you otherwise have to perform through 「M-x」. In order to do that, you can use {function define-portacle-key}. As an example, here's how to add a keychord for the Magit-status command:
 
