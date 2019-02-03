@@ -338,7 +338,7 @@ In order to customise the editor, you'll want to edit the file {file config/user
 
 The most common task you probably want to perform is assign a keychord to a function that you otherwise have to perform through 「M-x」. In order to do that, you can use {function define-portacle-key}. As an example, here's how to add a keychord for the Magit-status command:
 
-    ({function define-portacle-key} "C-?" 'Magit-status)
+    ({function define-portacle-key} "C-?" 'magit-status)
 
 To see that the keychord works, you can either save the file and restart Portacle, or you can load the change in directly by pressing 「{key "C-M-x"}」 with the cursor on the expression. Remember to use 「{key "C-h k"}」 and 「{key "C-h m"}」 to see what a keychord already does or what kinds of actions are available in a buffer.
 
