@@ -24,6 +24,3 @@
 (if (locate-library "portacle")
     (load-library "portacle")
   (display-warning :warning "Basic Portacle scripts are not present."))
-
-;; Load user init file
-(load user-init-file t)
