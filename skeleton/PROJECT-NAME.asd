@@ -1,9 +1,3 @@
-#|
- This file is a part of PROJECT-NAME
- (c) YEAR USER-FULL-NAME (USER-MAIL-ADDRESS)
- Author: USER-FULL-NAME <USER-MAIL-ADDRESS>
-|#
-
 (in-package #:cl-user)
 (asdf:defsystem PROJECT-NAME
   :version "0.0.0"
