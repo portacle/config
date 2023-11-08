@@ -76,5 +76,11 @@
 #+quicklisp
 (pushnew (portacle:path "projects/" NIL) ql:*local-project-directories*)
 
+;; Ensure our d-p-d is sane
+(setf *default-pathname-defaults* portacle:*root*)
+
+;; Load user file if it exists
+(portacle:load "config/user.lisp" NIL)
+
 ;; All set.
 (push :portacle *features*)
