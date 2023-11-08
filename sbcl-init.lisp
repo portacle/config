@@ -35,8 +35,10 @@
       (try dir))))
 
 (defvar *root*
-  (or (sb-posix:getenv "ROOT")
-      (find-root)))
+  (let ((envvar (sb-posix:getenv "ROOT")))
+    (if envvar
+        (sb-ext:parse-native-namestring envvar)
+        (find-root))))
 
 (defun path (file &optional (platform *platform*))
   (merge-pathnames (format NIL "~@[~a/~]~a" platform file) *root*))
